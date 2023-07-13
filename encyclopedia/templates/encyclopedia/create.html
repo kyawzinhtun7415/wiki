@@ -5,16 +5,19 @@
 {% endblock %}
 
 {% block body %}
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert alert-danger" role="alert">
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endif %}
-    <form action="{% url 'create' %}" method="post">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Save">
-    </form>
+    <div class="container py-4">
+        <h2>Create a New Page</h2>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-danger" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        <form action="{% url 'create' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }} <!-- Render form fields as paragraphs. If this does not look good, you will have to manually style each field. -->
+            <button type="submit" class="btn btn-primary">Save</button> <!-- Replaced the submit input with a styled button -->
+        </form>
+    </div>
 {% endblock %}

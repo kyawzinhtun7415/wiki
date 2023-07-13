@@ -5,12 +5,16 @@
 {% endblock %}
 
 {% block body %}
-    <h1>All Pages</h1>
-
-    <ul>
-        {% for entry in entries %}
-            <li><a href="{% url 'entry' entry %}">{{ entry }}</a></li>
-        {% endfor %}
-    </ul>
-
+    <div class="container py-4">
+        <h1>All Pages</h1>
+        {% if entries %}
+            <div class="list-group my-4"> <!-- Use Bootstrap's list-group for better styled list -->
+                {% for entry in entries %}
+                    <a href="{% url 'entry' entry %}" class="list-group-item list-group-item-action">{{ entry }}</a>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-muted">No entries found.</p> <!-- Display a message when there are no entries -->
+        {% endif %}
+    </div>
 {% endblock %}

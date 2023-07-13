@@ -5,6 +5,10 @@
 {% endblock %}
 
 {% block body %}
-    <p>{{entry | safe}}</p>
-    <a href="{% url 'edit' title=title %}">Edit this page</a>
+    <div class="container py-4">
+        <div class="entry-content my-4">
+            <p>{{entry | safe}}</p> <!-- Wrap entry in a div for easier styling -->
+        </div>
+        <a href="{% url 'edit' title=title %}" class="btn btn-primary">Edit this page</a> <!-- Apply Bootstrap button styles -->
+    </div>
 {% endblock %}

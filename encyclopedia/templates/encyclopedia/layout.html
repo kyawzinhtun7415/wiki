@@ -4,35 +4,48 @@
 
 <html lang="en">
     <head>
-        <title>{% block title %}{% endblock %}</title>
+        <title>{% block title %}{% endblock %} - Wiki</title> <!-- Added a default title suffix -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <!-- Responsive meta tag -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link href="{% static 'encyclopedia/styles.css' %}" rel="stylesheet">
     </head>
     <body>
-        <div class="row">
-            <div class="sidebar col-lg-2 col-md-3">
-                <h2>Wiki</h2>
-                <form action="{% url 'search' %}" method="get">
-                    <input class="search" type="text" name="q" placeholder="Search Encyclopedia">
-                    <input type="submit" value="Search">
-                </form>
-                <div>
-                    <a href="{% url 'index' %}">Home</a>
+        <header class="mb-3"> <!-- Introduced a header for a better structure -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light"> <!-- Made the navigation responsive -->
+                <a class="navbar-brand" href="{% url 'index' %}">Wiki</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'index' %}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'create' %}">Create New Page</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'random_page' %}">Random Page</a>
+                        </li>
+                        {% block nav %}
+                        {% endblock %}
+                    </ul>
+                    <form class="form-inline" action="{% url 'search' %}" method="get"> <!-- Added Bootstrap classes for better styling -->
+                        <input class="form-control mr-sm-2" type="text" name="q" placeholder="Search Encyclopedia" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
                 </div>
-                <div>
-                    <a href="{% url 'create' %}">Create New Page</a>
+            </nav>
+        </header>
+        <main role="main" class="container"> <!-- Added main section -->
+            <div class="row">
+                <div class="col-lg-12">
+                    {% block body %}
+                    {% endblock %}
                 </div>
-                <div>
-                    <a href="{% url 'random_page' %}">Random Page</a>
-                </div>
-                {% block nav %}
-                {% endblock %}
             </div>
-            <div class="main col-lg-10 col-md-9">
-                {% block body %}
-                {% endblock %}
-            </div>
-        </div>
-
+        </main>
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script> <!-- Added necessary JS for responsive navbar -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>
